@@ -1,0 +1,30 @@
+Stage: Development -01
+@author: Mohammad Salah , 120202003
+@author: Baran Duzgen , 115202047
+
+def parse_page(html):
+   soup=BeautifulSoup(html,'html.parser')
+    review_list=soup.find_all('div',class_='review review--with-sidebar')
+    rating_list=soup.find_all('div',class_='review-content')
+    link=soup.find_all('a',class_='u-decoration-none next pagination-links_anchor')
+
+    new_list=[]
+    for r in range(len(review_list)):
+        new_dict={}
+        n_rev=review_list[r]
+        n_rat=rating_list[r]
+        new_dict['review_id']=str(n_rev.attrs['data-review-id'])
+        new_dict['user_id']=str(n_rev.attrs['data-signup-object'][8:])
+        new_dict['rating']=float(n_rat.find('img').get('alt')[:3])
+        new_dict['date']=str(n_rat.span.text.replace(' ','').strip('\n'))
+        new_dict['text']=str(n_rat.p.text)
+        new_list.append(new_dict)
+    
+    if link!=[]:
+        url=link[0].attrs['href']
+    else:
+        url='None'
+    
+
+    return (new_list,str(url))
+    pass
