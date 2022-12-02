@@ -4,8 +4,9 @@ Stage: Development -01
 
 def parse_page(html):
    soup=BeautifulSoup(html,'html.parser')
-    review_list=soup.find_all('div',class_='review review--with-sidebar')
-    rating_list=soup.find_all('div',class_='review-content')
+   review_list = soup.find_all('div',class_='review review--with-sidebar')
+   def parse_page(html):
+    rating_list = soup.find_all('div',class_='review-content')
     link=soup.find_all('a',class_='u-decoration-none next pagination-links_anchor')
 
     new_list=[]
@@ -27,4 +28,3 @@ def parse_page(html):
     
 
     return (new_list,str(url))
-    pass
